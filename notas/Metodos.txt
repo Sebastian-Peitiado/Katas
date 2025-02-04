@@ -1,0 +1,50 @@
+metodo append(): este metodo sirve para agregar un elemento al final de la lista 
+
+ejemplo:  
+´´´
+mi_lista = [1, 2, 3]
+mi_lista.append(4)
+print(mi_lista)  # Salida: [1, 2, 3, 4]
+´´´
+
+metodo remove(): este metodo elimina el valor que se ingrese como parametro en la primera aparicion de la lista
+
+ejemplo:
+´´´
+mi_lista = [1, 2, 3, 2, 4]
+mi_lista.remove(2)  
+print(mi_lista)  # Salida: [1, 3, 2, 4]
+´´´
+
+metodo sort(): ordena la lista de manera ascendente por defecto 
+´´´
+numeros = [5, 2, 9, 1, 7]
+numeros.sort()
+print(numeros)  # Salida: [1, 2, 5, 7, 9]
+´´´
+Si queres ordenarlo en orden descendente:
+´´´
+numeros.sort(reverse=True)
+print(numeros)  # Salida: [9, 7, 5, 2, 1]
+´´´
+
+#METODOS DE STRING
+
+metodo replace(): remplza una parte de la cadena por otra
+
+´´´
+mensaje = "Hola amigo"
+nuevo_mensaje = mensaje.replace("amigo", "mundo")
+print(nuevo_mensaje)  # Salida: "Hola mundo"
+
+´´´
+
+metodo split(): Divide una cadena en una lista de palabras usando un separador.
+
+´´´
+frase = "Python es increíble"
+lista_palabras = frase.split()  # Por defecto separa por espacios
+print(lista_palabras)  # Salida: ['Python', 'es', 'increíble']
+
+´´´
+
