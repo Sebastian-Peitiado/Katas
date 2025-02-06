@@ -1,22 +1,31 @@
 import pytest
 import string
 
-class Calculator:
+class Calculadora:
 
-    NO_STRING = "Debe ingresar un string"
-
-    def __init__(self, numbers):
-        self.numbers = numbers
+    def __init__(self, numeros):
+        self.numeros = numeros 
     
-    @classmethod
-    def add(self, numbers):
-        if numbers == "":
-            return self.NO_STRING
+    def sumar(self):
+        if self.numeros == "":
+            return 0  
+        
+        numeros_enteros = list(map(int, self.numeros.split(",")))
 
+        return sum(numeros_enteros)  
 
-def test_empty_string():
-    calculator = Calculator(
-        numbers = ""
-    )
-    assert calculator.numbers == ""
-    return calculator.NO_STRING
+        
+
+def test_prueba_cadena_vacia():
+    calculadora = Calculadora(numeros="")
+    assert calculadora.sumar() == 0  
+    
+
+def test_prueba_un_solo_numero():
+    calculadora = Calculadora(numeros="1")
+    assert calculadora.sumar() == 1  
+    
+
+def test_prueba_cadena_con_coma():
+    calculadora = Calculadora(numeros="1,2")
+    assert calculadora.sumar() == 3  
