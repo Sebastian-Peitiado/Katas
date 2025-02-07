@@ -7,13 +7,16 @@ class Calculadora:
         self.numeros = numeros 
     
     INPUT_INVALIDO = "No se puede poner un separador despues de otro separados"
-
+    SIN_COMA_AL_FINAL = "no puede haber coma al final del input"
+    
     def sumar(self):
         
         if self.numeros == "":
             return 0
         elif self.numeros == "2,\n3":
             return self.INPUT_INVALIDO
+        elif self.numeros.endswith(","):
+            return self.SIN_COMA_AL_FINAL
 
         numeros_procesados = self.numeros.replace("\n",",")
         numeros_enteros = list(map(int, filter(None, numeros_procesados.split(","))))
@@ -51,4 +54,9 @@ def test_input_invalido():
         numeros = "2,\n3"
     )
     assert calculadora.numeros != calculadora.INPUT_INVALIDO
-   
+
+def test_sin_coma_al_final():
+    calculadora = Calculadora (
+        numeros="2,3,"
+    )
+    assert calculadora.numeros != calculadora.SIN_COMA_AL_FINAL
