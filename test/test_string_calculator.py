@@ -16,7 +16,7 @@ class Calculadora:
         elif self.numeros == "2,\n3":
             return self.INPUT_INVALIDO
         elif self.numeros.endswith(","):
-            return self.SIN_COMA_AL_FINAL
+            raise ValueError(self.SIN_COMA_AL_FINAL)
 
         numeros_procesados = self.numeros.replace("\n",",")
         numeros_enteros = list(map(int, filter(None, numeros_procesados.split(","))))
@@ -56,7 +56,8 @@ def test_input_invalido():
     assert calculadora.numeros != calculadora.INPUT_INVALIDO
 
 def test_sin_coma_al_final():
-    calculadora = Calculadora (
-        numeros="2,3,"
+    calculadora = Calculadora(
+        numeros = "1,2,"
     )
-    assert calculadora.numeros != calculadora.SIN_COMA_AL_FINAL
+    with pytest.raises(ValueError, match=Calculadora.SIN_COMA_AL_FINAL):
+        calculadora.sumar()
