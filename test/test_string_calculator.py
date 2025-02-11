@@ -1,27 +1,40 @@
 import pytest
 import string
-
+import re
 class Calculadora:
 
-    def __init__(self, numeros):
-        self.numeros = numeros 
-    
     INPUT_INVALIDO = "No se puede poner un separador despues de otro separados"
     SIN_COMA_AL_FINAL = "no puede haber coma al final del input"
-    
+
+    def __init__(self, numeros):
+        self.numeros = numeros
+        self.delimitador = ","  
+
+    def procesar_entrada(self):
+        if self.numeros.startswith("//"):
+            match = re.match(r"//(.+)\n(.*)", self.numeros)
+            if match:
+                self.delimitador = match.group(1)  
+                self.numeros = match.group(2)  
+
+        regex_delimitador = re.escape(self.delimitador)  # Escapa caracteres especiales
+        self.numeros_lista = re.split(f"{regex_delimitador}|\n", self.numeros)
+
+    def validar_entrada(self):
+        for i, caracter in enumerate(self.numeros):
+            if caracter in [",", "\n"] and self.delimitador not in [",", "\n"]:
+                raise ValueError(f"'{self.delimitador}' expected but '{caracter}' found at position {i}.")
+
     def sumar(self):
-        
         if self.numeros == "":
             return 0
-        elif self.numeros == "2,\n3":
-            return self.INPUT_INVALIDO
-        elif self.numeros.endswith(","):
-            raise ValueError(self.SIN_COMA_AL_FINAL)
 
-        numeros_procesados = self.numeros.replace("\n",",")
-        numeros_enteros = list(map(int, filter(None, numeros_procesados.split(","))))
+        self.procesar_entrada()  # Extraer delimitador y lista de números
+        self.validar_entrada()  # Validar si hay errores de formato
 
-        return sum(numeros_enteros)  
+        # Convertir lista de strings a enteros y sumarlos
+        numeros_enteros = list(map(int, filter(None, self.numeros_lista)))
+        return sum(numeros_enteros)
 
         
 
@@ -61,3 +74,20 @@ def test_sin_coma_al_final():
     )
     with pytest.raises(ValueError, match=Calculadora.SIN_COMA_AL_FINAL):
         calculadora.sumar()
+
+def test_suma_con_delimitador_personalizado():
+    calc = Calculadora("//;\n1;3")
+    assert calc.sumar() == 4
+
+def test_suma_con_otro_delimitador():
+    calc = Calculadora("//|\n1|2|3")
+    assert calc.sumar() == 6
+
+def test_suma_con_delimitador_mas_largo():
+    calc = Calculadora("//sep\n2sep5")
+    assert calc.sumar() == 7
+
+def test_error_si_hay_delimitador_incorrecto():
+    calc = Calculadora("//|\n1|2,3")
+    with pytest.raises(ValueError, match="'\\|' expected but ',' found at position 3."):
+        calc.sumar()
