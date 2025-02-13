@@ -3,6 +3,8 @@ import string
 import re
 class Calculadora:
 
+    #TODO a futuro continuar el resto del ejercicio a partir del punto 6, una vez finalizado el ejercicio de dados
+
     INPUT_INVALIDO = "No se puede poner un separador despues de otro separados"
     SIN_COMA_AL_FINAL = "no puede haber coma al final del input"
 
