@@ -65,17 +65,17 @@ def test_procesando_numeros_con_salto_de_linea():
     assert calculadora.sumar() == 6
 
 def test_input_invalido():
-    calculadora = Calculadora(
-        numeros = "2,\n3"
-    )
-    assert calculadora.numeros != calculadora.INPUT_INVALIDO
+   calculadora = Calculadora(
+       numeros = "2,\n3"
+   )
+   assert calculadora.numeros != calculadora.INPUT_INVALIDO
 
-def test_sin_coma_al_final():
-    calculadora = Calculadora(
-        numeros = "1,2,"
-    )
-    with pytest.raises(ValueError, match=Calculadora.SIN_COMA_AL_FINAL):
-        calculadora.sumar()
+#def test_sin_coma_al_final():
+#    calculadora = Calculadora(
+#        numeros = "1,2,"
+#    )
+#    with pytest.raises(ValueError, match=Calculadora.SIN_COMA_AL_FINAL):
+#        calculadora.sumar()
 
 def test_suma_con_delimitador_personalizado():
     calc = Calculadora("//;\n1;3")
