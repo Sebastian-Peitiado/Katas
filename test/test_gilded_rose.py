@@ -13,8 +13,12 @@ class GildedRose(object):
         is_special_item = item.name == "Aged Brie" or item.name == "Backstage passes to a TAFKAL80ETC concert"
         is_sulfura = item.name == "Sulfuras, Hand of Ragnaros"
         self.decrese_sell_in(item)
+
+        if is_sulfura:
+            return 
+        
         if not is_special_item:
-            if item.quality > 0 and not is_sulfura:
+            if item.quality > 0: 
                 self.downgrade_item(item)
         else:
             if item.quality < 50:
@@ -27,8 +31,8 @@ class GildedRose(object):
 
         if item.sell_in < 0:
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
-                if item.quality > 0 and not is_sulfura:
-                    item.quality -= 1
+                if item.quality > 0:
+                    self.downgrade_item(item)
             else:
                 item.quality = 0 if item.name == "Backstage passes to a TAFKAL80ETC concert" else min(50, item.quality + 1)
 
