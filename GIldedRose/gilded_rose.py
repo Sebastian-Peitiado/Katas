@@ -10,10 +10,10 @@ class GildedRose(object):
         self.update_item(item)
     
     def update_item(self, item):
-        is_special_item = item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
+        is_special_item = item.name == "Aged Brie" and item.name == "Backstage passes to a TAFKAL80ETC concert"
         is_not_sulfura = item.name != "Sulfuras, Hand of Ragnaros"
         self.decrese_sell_in(item)
-        if is_special_item:
+        if not is_special_item:
             if item.quality > 0 and is_not_sulfura:
                 self.downgrade_item(item)
         else:
