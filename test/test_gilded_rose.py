@@ -18,8 +18,13 @@ class GildedRose(object):
             return 
         
         if not is_special_item:
-            if item.quality > 0: 
+            if item.quality > 0 and item.sell_in > 0: 
                 self.downgrade_item(item)
+                return 
+            else:
+                self.downgrade_item(item)
+                self.downgrade_item(item)
+                return
         else:
             if item.quality < 50:
                 item.quality += 1
@@ -30,11 +35,7 @@ class GildedRose(object):
                         item.quality += 1
 
         if item.sell_in < 0:
-            if not is_special_item:
-                if item.quality > 0:
-                    self.downgrade_item(item)
-            else:
-                item.quality = 0 if item.name == "Backstage passes to a TAFKAL80ETC concert" else min(50, item.quality + 1)
+            item.quality = 0 if item.name == "Backstage passes to a TAFKAL80ETC concert" else min(50, item.quality + 1)
 
     def decrese_sell_in(self, item):
         item.sell_in -= 1
