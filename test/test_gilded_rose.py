@@ -30,7 +30,7 @@ class GildedRose(object):
                         item.quality += 1
 
         if item.sell_in < 0:
-            if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
+            if not is_special_item:
                 if item.quality > 0:
                     self.downgrade_item(item)
             else:
