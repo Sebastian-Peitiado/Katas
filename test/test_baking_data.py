@@ -19,6 +19,10 @@ class Account ():
         return self.BALANCE
   
     def withdraw(self, amount):
+        if not isinstance(amount, (int, float)) :
+            raise ValueError(self.INVALID_FORMAT)
+        if amount < 0:
+            raise ValueError(self.NO_NEGATIVE_NUMBERS)
         if amount > self.BALANCE: 
             raise ValueError(self.ALERT)
         self.BALANCE-= amount
@@ -53,3 +57,13 @@ def test_succesful_withdraw():
     account.deposit(1000)
     account.withdraw(100)
     assert account.get_balance() == 900
+
+def test_error_when_withdraw_is_a_negative_number():
+    account = Account()
+    with pytest.raises(Exception, match=account.NO_NEGATIVE_NUMBERS):
+        account.withdraw(-100)
+
+def test_error_when_withdraw_is_a_string_number():
+    account = Account()
+    with pytest.raises(Exception, match=account.INVALID_FORMAT):
+        account.withdraw("500")
