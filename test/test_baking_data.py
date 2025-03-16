@@ -1,32 +1,39 @@
 import pytest
 
-class Account ():
+class Account:
 
-    ALERT = "You cant withdraw money when theres no money in the account"
-    BALANCE = 0
+    ALERT = "You can't withdraw money when there's no money in the account"
     INVALID_FORMAT = "Strings are not allowed"
     NO_NEGATIVE_NUMBERS = "Negative numbers are not allowed"
 
+    def __init__(self):
+        self._balance = 0  # Ahora es un atributo de instancia
+
+    def _validate_amount(self, amount):
+        """Método privado para validar la cantidad ingresada."""
+        if not isinstance(amount, (int, float)):
+            raise ValueError(self.INVALID_FORMAT)
+        if amount < 0:
+            raise ValueError(self.NO_NEGATIVE_NUMBERS)
+
     def deposit(self, amount):
-        
-        if not isinstance(amount, (int, float)) :
-            raise ValueError(self.INVALID_FORMAT)
-        if amount < 0:
-            raise ValueError(self.NO_NEGATIVE_NUMBERS)
-        self.BALANCE += amount
-        
-    def get_balance(self):
-        return self.BALANCE
-  
+        self._validate_amount(amount)
+        self._balance += amount
+
     def withdraw(self, amount):
-        if not isinstance(amount, (int, float)) :
-            raise ValueError(self.INVALID_FORMAT)
-        if amount < 0:
-            raise ValueError(self.NO_NEGATIVE_NUMBERS)
-        if amount > self.BALANCE: 
+        self._validate_amount(amount)
+        if amount > self._balance:
             raise ValueError(self.ALERT)
-        self.BALANCE-= amount
+        self._balance -= amount
+
+    @property
+    def balance(self):
+        return self.balance
+
         
+
+
+
 
 def test_succesful_deposit():
     #arrange
@@ -34,7 +41,7 @@ def test_succesful_deposit():
     #act
     account.deposit(500)
     #assert
-    balance = account.get_balance()
+    balance = account._balance
     assert balance == 500
 
 def test_invalid_deposit():
@@ -56,7 +63,7 @@ def test_succesful_withdraw():
     account = Account()
     account.deposit(1000)
     account.withdraw(100)
-    assert account.get_balance() == 900
+    assert account._balance == 900
 
 def test_error_when_withdraw_is_a_negative_number():
     account = Account()
