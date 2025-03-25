@@ -1,7 +1,3 @@
-from enum import Enum
-
-
-
 class Parrot:
 
     def __init__(self, number_of_coconuts, voltage, nailed):
