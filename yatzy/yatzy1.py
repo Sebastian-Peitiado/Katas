@@ -64,17 +64,13 @@ class Yatzy:
                 sum = sum + 6
         return sum
 
-    def score_pair(self, d1, d2, d3, d4, d5):
-        counts = [0] * 6
-        counts[d1 - 1] += 1
-        counts[d2 - 1] += 1
-        counts[d3 - 1] += 1
-        counts[d4 - 1] += 1
-        counts[d5 - 1] += 1
-        at = 0
-        for at in range(6):
-            if (counts[6 - at - 1] == 2):
-                return (6 - at) * 2
+    def score_pair(self):
+        counts = {}
+        for key in self.dice:
+            counts[key] = counts.get(key,0) + 1
+        for key in range( 6, 0, -1):  
+            if counts.get(key,0) >= 2:
+                return key * 2
         return 0
 
     @staticmethod
