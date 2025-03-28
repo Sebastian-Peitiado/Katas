@@ -4,7 +4,7 @@ class Yatzy:
     def chance(*dice):
         return sum(dice)
 
-    @staticmethod
+    
     def yatzy(dice):
         counts = [0] * (len(dice) + 1)
         for die in dice:
@@ -14,7 +14,7 @@ class Yatzy:
                 return 50
         return 0
 
-    @staticmethod
+    
     def ones(*dice):
         sum = 0
         for i in dice:
@@ -22,7 +22,7 @@ class Yatzy:
                 sum += 1
         return sum 
 
-    @staticmethod
+    
     def twos(*dice):
         sum = 0
         for i in dice:
@@ -30,7 +30,7 @@ class Yatzy:
                 sum += 2
         return sum 
 
-    @staticmethod
+    
     def threes(*dice):
         sum = 0
         for i in dice:
@@ -73,27 +73,22 @@ class Yatzy:
                 return key * 2
         return 0
 
-    @staticmethod
-    def two_pair(d1, d2, d3, d4, d5):
-        counts = [0] * 6
-        counts[d1 - 1] += 1
-        counts[d2 - 1] += 1
-        counts[d3 - 1] += 1
-        counts[d4 - 1] += 1
-        counts[d5 - 1] += 1
-        n = 0
-        score = 0
-        for i in range(6):
-            if (counts[6 - i - 1] >= 2):
-                n = n + 1
-                score += (6 - i)
-
-        if (n == 2):
-            return score * 2
+    
+    def two_pair(self):
+        
+        counts = {}
+        pairs = []
+        for key in self.dice:
+            counts[key] = counts.get(key, 0) + 1
+        for key in range(6, 0, -1):
+            if counts.get(key, 0) >= 2:
+                pairs.append(key)
+        if len(pairs) == 2:
+            return (pairs[0] + pairs[1]) * 2
         else:
             return 0
 
-    @staticmethod
+    
     def four_of_a_kind(_1, _2, d3, d4, d5):
         tallies = [0] * 6
         tallies[_1 - 1] += 1
