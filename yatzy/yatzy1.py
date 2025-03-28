@@ -89,16 +89,13 @@ class Yatzy:
             return 0
 
     
-    def four_of_a_kind(_1, _2, d3, d4, d5):
-        tallies = [0] * 6
-        tallies[_1 - 1] += 1
-        tallies[_2 - 1] += 1
-        tallies[d3 - 1] += 1
-        tallies[d4 - 1] += 1
-        tallies[d5 - 1] += 1
-        for i in range(6):
-            if (tallies[i] >= 4):
-                return (i + 1) * 4
+    def four_of_a_kind(self):
+        counts = {}
+        for key in self.dice:
+            counts[key] = counts.get(key, 0) + 1
+        for key in range(6, 0, -1):
+            if (counts.get(key,0) >= 4):
+                return (key) * 4
         return 0
 
     @staticmethod
