@@ -1,8 +1,8 @@
 class Yatzy:
 
    
-    def chance(*dice):
-        return sum(dice)
+    def chance(self):
+        return sum(self.dice)
 
     
     def yatzy(dice):

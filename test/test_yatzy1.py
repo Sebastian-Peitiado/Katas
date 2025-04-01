@@ -6,9 +6,9 @@ from yatzy.yatzy1 import Yatzy
 
 def test_chance_scores_sum_of_all_dice():
     expected = 15
-    actual = Yatzy.chance(2, 3, 4, 5, 1)
+    actual = Yatzy(2, 3, 4, 5, 1).chance()
     assert expected == actual
-    assert 16 == Yatzy.chance(3, 3, 4, 5, 1)
+    assert 16 == Yatzy(3, 3, 4, 5, 1).chance()
 
 
 def test_yatzy_scores_50():
