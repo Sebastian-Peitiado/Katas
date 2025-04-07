@@ -27,10 +27,8 @@ class Account:
         self._balance -= amount
 
     @property
-    def balance(self):
+    def get_balance(self):
         return self._balance
-
-        
 
 
 
