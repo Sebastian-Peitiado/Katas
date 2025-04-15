@@ -7,7 +7,8 @@ class Account:
     NO_NEGATIVE_NUMBERS = "Negative numbers are not allowed"
 
     def __init__(self):
-        self._balance = 0  # Ahora es un atributo de instancia
+        self._balance = 0
+        self.activo = True
 
     def _validate_amount(self, amount):
         """Método privado para validar la cantidad ingresada."""
@@ -25,12 +26,49 @@ class Account:
         if amount > self._balance:
             raise ValueError(self.ALERT)
         self._balance -= amount
+    
+    def print_statement(self):
+        pass
+
+    def mostrar_menu(self):
+        print("\n--- Menú de opciones ---")
+        print("1. depositar")
+        print("2. validar monto")
+        print("3. extraer dinero")
+        print("4. imprimir cuenta actual")
+        print("5. Salir")
+        
+    def ejecucion(self):
+        while self.activo:
+            self.mostrar_menu()
+            opcion = input("Que desea realizar: ")
+            if opcion == "1":
+                self.deposit()
+            elif opcion == "2":
+                self._validate_amount()
+            elif opcion == "3":
+                self.withdraw()
+            elif opcion == "4":
+                self.print_statement()
+            elif opcion == "5":
+                print("ha finalizado el programa")
+                self.activo = False
+            else:
+                print("Opción no válida, volve a ingresar.")
+
+            
 
     @property
     def get_balance(self):
         return self._balance
 
 
+def main():
+   account = Account()
+   account.ejecucion()
+
+if __name__ == "__main__":
+    main()
 
 
 def test_succesful_deposit():
