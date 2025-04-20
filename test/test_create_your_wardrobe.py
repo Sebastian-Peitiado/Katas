@@ -10,14 +10,21 @@
 #9 tiene que especificar que medidas utilizo para armarlo
 
 class Armario():
-    def __init__(self,placas_disponibles: list,tamaño_maximo: int):
+    def __init__(self,placas_disponibles: list,tamaño_maximo: int, precios: dict):
         self.placas_disponibles = placas_disponibles
         self.tamaño_maximo = tamaño_maximo
+        self.precios = precios
+
+
 
     def armado(self):
-        armario_terminado = {}
-        for key in range(0,self.placas_disponibles[5],1):
-            pass
+        resultado = []
+        plaquetas_introducidas = []
+        if self.placas_disponibles == self.tamaño_maximo:
+            plaquetas_introducidas.append(self.placas_disponibles)
+        
+    
+    
         
 
 
@@ -26,8 +33,10 @@ def test_creacion_de_armario():
     armario = Armario(placas_disponibles=[50,75,100,120],tamaño_maximo=250)
     assert armario != None
 
-def test_02():
-    armario = Armario(placas_disponibles=[50,75,100,120],tamaño_maximo=250)
-    opciones_de_armado = armario.armado()
-    assert opciones_de_armado == [{75,75,100},204]
+def test_armado_de_armario():
+    armario = Armario(placas_disponibles=[50,75,100,120],tamaño_maximo=250,precios={50: 59, 75: 62, 100: 90, 120: 111})
+    armario.armado()
+    assert armario.armado() == [[75,75,100], 214]
+    
+
     
